@@ -222,3 +222,6 @@ INTERNAL_IPS = [
 
 SITE_HEADER = os.getenv("SITE_HEADER", "Qjango by Qux")
 SITE_TITLE = os.getenv("SITE_TITLE", "Qjango")
+
+# Cache expire time
+CACHE_EXPIRE_TIME = os.getenv("CACHE_EXPIRE_TIME")
