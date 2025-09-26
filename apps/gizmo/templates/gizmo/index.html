@@ -1,5 +1,60 @@
 {% extends 'gizmo/blank.html' %}
 
 {% block qux_content %}
-{{ clubbed_data }}
+<div class="container-fluid">
+    <div class="row">
+        {% for chart in clubbed_data.keys %}
+            <div class="col-12 col-lg-6 col-xxl-4">
+                <div class="h6 mb-3">
+                    {{ chart }}
+                </div>
+                <div id="chart{{ forloop.counter }}" class="w-100 chart border mb-4">
+                </div>
+            </div>
+        {% endfor %}
+    </div>    
+</div>
 {% endblock qux_content %}
+
+{% block customjs %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chartContainers = document.getElementsByClassName("chart");
+            let counter = 1;
+            const rawData = {{ clubbed_data|safe }};
+
+            function debounce(func, wait) {
+                let timeout;
+                return function (...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), wait);
+                };
+            }
+
+            if (chartContainers.length > 0) {
+                Array.from(chartContainers).forEach(function (container) {
+                    const containerId = container.id;
+                    const dataSelector = "data_" + counter;
+                    
+                    const data = JSON.parse(rawData[dataSelector]);
+
+
+                    if (!data) {
+                        console.warn(`No data found for container id ${containerId}`);
+                        return;
+                    }
+
+                    const chart = new ChartRenderer(containerId);
+                    chart.setData(data);
+                    chart.render();
+
+                    window.addEventListener("resize", debounce(() => chart.render(), 200));
+
+                    counter++;
+                });
+            };
+
+            
+        });
+    </script>
+{% endblock customjs %}

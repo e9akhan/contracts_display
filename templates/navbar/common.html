@@ -1,6 +1,6 @@
 {% load static qux %}
 <nav class="navbar navbar-expand-md py-3 custom-navbar navbar-light role role-{{ user.role.role.id }}">
-  <div class="container-xl">
+  <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center py-0" href="/">
       <img id="navbar-brand-image"
            src="{% static 'logo/logo.svg' %}"
@@ -23,6 +23,37 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-1 ms-md-auto mt-2 mt-md-0">
+        <li class="nav-item ms-lg-3 text-uppercase">
+          <a class="nav-link" href="?update=True">Refresh</a>
+        </li> 
+        <li class="nav-item ms-lg-3 dropdown text-uppercase">
+          <a href="#" class="nav-link" role="button" data-bs-toggle="dropdown"
+             id="navbarDropdownContracts">
+             Contracts
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownContracts">
+            <li>
+              <a class="dropdown-item" href="#">1</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">2</a>
+            </li>
+          </ul>
+        </li>               
+        <li class="nav-item ms-lg-3 dropdown text-uppercase">
+          <a href="#" class="nav-link" role="button" data-bs-toggle="dropdown"
+             id="navbarDropdownSymbols">
+             Symbols
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownSymbols">
+            <li>
+              <a class="dropdown-item" href="#">1</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">2</a>
+            </li>
+          </ul>
+        </li>               
         {% include "navbar/users.html" %}
       </ul>
       <div class="navbar-collapse-hack d-none"></div>
